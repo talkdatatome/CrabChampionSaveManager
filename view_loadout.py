@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import filedialog
 import os
 import os.path
+import subprocess
 
 def get_inventory_data_frame_from_json(x):
     """Input is jsonified version of .sav file."""
@@ -39,9 +40,12 @@ if __name__=="__main__":
     
     input_file = filedialog.askopenfilename(initialdir= crab_locale)
     output_file = "blah.json"
-    my_command = "uesave.exe to-json -i " + input_file + " -o " + output_file
+    my_command = "uesave to-json -i " + input_file + " -o " + output_file
 
-    with open('blah.json') as f:
+    # call uesave to write out to output file
+    subprocess.run(my_command)
+    
+    with open(output_file) as f:
         x = json.load(f)
 
     # remove blah.json
